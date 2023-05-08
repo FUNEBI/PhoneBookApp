@@ -1,4 +1,10 @@
-import { Component } from '@angular/core';
+
+import { Component, OnInit } from '@angular/core';
+import {FormBuilder,FormControl,FormGroup,Validators} from '@angular/forms';
+import { Observable, Subject } from 'rxjs';
+
+type Contact = Array<{firstName:string,lastName:string}>
+
 
 @Component({
   selector: 'app-root',
@@ -6,5 +12,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'call-app';
+  contactList:[]=[]
+  formGroup!: FormGroup;
+  firstName:string="";
+  lastName:any;
+  
+
+  contactList$!: Observable<any>; 
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
+
+  
+
+  
+
+
+
+  
 }

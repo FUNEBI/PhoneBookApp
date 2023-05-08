@@ -1,0 +1,51 @@
+<div class="card-body py-3">
+
+    <div class="table-responsive">
+        <h4 class="py-3 text-center"> Contact List </h4>
+        <div class="card-toolbar text-end mx-xl-8">
+            <a class="btn btn-sm btn-light-primary" (click)="openAddContact()">
+              Add Contact
+            </a> &nbsp; &nbsp;
+           
+          </div>
+        <table class="table table-bordered table-striped table-hover" datatable [dtOptions]="dtOptions" *ngIf="contactList$ | async as data">
+            <thead class="table-dark">
+                <tr>
+                    <th></th>
+                    <th>S/N</th>
+                    <th>Name</th>
+                    <th>Action</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of data.data; let i = index">
+                    <td></td>
+                    <td>{{i+1}}</td>
+                    <td>{{item.employee_name}}</td>
+                    <td>
+                      <div ngbDropdown class="d-inline-block">
+                        <a class="nav-link" id="dropdownBasic1" ngbDropdownToggle>
+                            Menu
+                        </a>
+                        <div ngbDropdownMenu class=" drop-item" aria-labelledby="dropdownBasic1">
+                            <button ngbDropdownItem (click)="openView(item.id)">View</button>
+                            <button ngbDropdownItem [routerLink]="['update/',item.id]">Edit</button>
+                            <button [swal]="{
+                                confirmButtonColor:'red',
+                                icon :'error',
+                                text :'Are you Sure You wan to Delete ' +  item.employee_name +  '?',
+                                title: 'Delete Contact ',
+                                confirmButtonText: 'Yes, Delete',
+                                showCancelButton: true ,
+                                showConfirmButton : true}" (confirm)="deleteContact(item.id)" class="mt-4" ngbDropdownItem> Delete </button>
+                        </div>
+                    </div>
+                  </td>
+                    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "#fff" type = "ball-scale-multiple" [fullScreen] = "true"><p style="color: white" ></p></ngx-spinner>
